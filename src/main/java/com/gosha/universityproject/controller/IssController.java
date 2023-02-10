@@ -1,8 +1,5 @@
 package com.gosha.universityproject.controller;
 
-import com.gosha.universityproject.entity.People;
-import com.gosha.universityproject.model.dto.IssPositionDto;
-import com.gosha.universityproject.service.IssService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

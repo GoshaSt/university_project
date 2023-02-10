@@ -1,9 +1,5 @@
 package com.gosha.universityproject.service.impl;
 
-import com.gosha.universityproject.model.dto.IssPositionDto;
-import com.gosha.universityproject.model.dto.PlaceDto;
-import com.gosha.universityproject.service.IssService;
-import com.gosha.universityproject.service.LocationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;

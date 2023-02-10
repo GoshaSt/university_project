@@ -1,8 +1,5 @@
 package com.gosha.universityproject.service.impl;
 
-import com.gosha.universityproject.model.dto.WeatherDto;
-import com.gosha.universityproject.service.LocationService;
-import com.gosha.universityproject.service.WeatherService;
 import com.gosha.universityproject.util.ModelMapperUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
