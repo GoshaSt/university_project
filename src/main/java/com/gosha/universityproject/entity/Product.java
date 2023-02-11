@@ -11,6 +11,7 @@ import javax.persistence.*;
 @Builder
 @Getter
 @Setter
+@ToString
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

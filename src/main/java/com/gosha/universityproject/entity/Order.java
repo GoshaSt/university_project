@@ -1,6 +1,8 @@
 package com.gosha.universityproject.entity;
 
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -12,6 +14,7 @@ import java.time.LocalDate;
 @Builder
 @Getter
 @Setter
+@ToString
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,6 +22,7 @@ public class Order {
     private Long orderId;
 
     @Column(name = "order_date", nullable = false)
+    @CreationTimestamp
     private LocalDate orderDate;
 
     @ManyToOne
