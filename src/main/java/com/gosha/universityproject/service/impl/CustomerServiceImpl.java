@@ -42,7 +42,7 @@ public class CustomerServiceImpl implements CustomerService, UserDetailsService 
         if (customer.getUsername().equals(username)) {
             return new User(customer.getUsername(),
                     passwordEncoder.encode(customer.getPassword()),
-                    new ArrayList<>());
+                    customer.getAuthorities());
         } else {
             throw new UsernameNotFoundException("User not found with username: " + username);
         }
