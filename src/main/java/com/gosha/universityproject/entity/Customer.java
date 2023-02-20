@@ -1,8 +1,13 @@
 package com.gosha.universityproject.entity;
 
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "customer")
@@ -18,6 +23,12 @@ public class Customer {
     @Column(name = "customer_id")
     private Long customerId;
 
+    @Column(name = "username", nullable = false)
+    private String username;
+
+    @Column(name = "password", nullable = false)
+    private String password;
+
     @Column(name = "first_name", nullable = false)
     private String firstName;
 
@@ -26,5 +37,16 @@ public class Customer {
 
     @Column(name = "email", nullable = false)
     private String email;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
+    @Column(name = "role")
+    private Set<String> roles;
+
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return roles.stream()
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
+    }
 
 }
