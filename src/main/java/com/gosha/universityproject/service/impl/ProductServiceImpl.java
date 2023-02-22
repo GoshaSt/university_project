@@ -9,6 +9,8 @@ import com.gosha.universityproject.util.ModelMapperUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
@@ -24,5 +26,13 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductDto findByProductName(String productName) {
         return ModelMapperUtil.modelMapper().map(productRepository.findByProductName(productName), ProductDto.class);
+    }
+
+    @Override
+    public List<ProductDto> getAll() {
+        List<Product> productList = productRepository.findAll();
+        return productList.stream()
+                .map(product -> ModelMapperUtil.modelMapper().map(product, ProductDto.class))
+                .toList();
     }
 }

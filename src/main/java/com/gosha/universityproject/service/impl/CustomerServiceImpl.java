@@ -35,10 +35,16 @@ public class CustomerServiceImpl implements CustomerService, UserDetailsService 
     }
 
     @Override
+    public CustomerDto findByUsername(String username) {
+        Customer customer = customerRepositoty.findByUsername(username).orElseThrow();
+        return ModelMapperUtil.modelMapper().map(customer, CustomerDto.class);
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        Customer customer = customerRepositoty.findByUsername(username);
+        Customer customer = customerRepositoty.findByUsername(username).orElseThrow();
         if (customer.getUsername().equals(username)) {
             return new User(customer.getUsername(),
                     passwordEncoder.encode(customer.getPassword()),

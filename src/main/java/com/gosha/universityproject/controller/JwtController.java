@@ -1,5 +1,6 @@
 package com.gosha.universityproject.controller;
 
+import com.gosha.universityproject.model.dto.CustomerDto;
 import com.gosha.universityproject.security.JwtRequestModel;
 import com.gosha.universityproject.security.JwtResponseModel;
 import com.gosha.universityproject.security.TokenManager;
@@ -25,9 +26,10 @@ public class JwtController {
     private AuthenticationManager authenticationManager;
     @Autowired
     private TokenManager tokenManager;
+
     @PostMapping("/login")
     public ResponseEntity createToken(@RequestBody JwtRequestModel
-                                                request) throws Exception {
+                                              request) throws Exception {
         try {
             authenticationManager.authenticate(
                     new
@@ -40,7 +42,8 @@ public class JwtController {
             throw new Exception("INVALID_CREDENTIALS", e);
         }
         final UserDetails userDetails = userDetailsService.loadUserByUsername(request.getUsername());
+        final CustomerDto customerDto = userDetailsService.findByUsername(request.getUsername());
         final String jwtToken = tokenManager.generateJwtToken(userDetails);
-        return ResponseEntity.ok(new JwtResponseModel(jwtToken));
+        return ResponseEntity.ok(new JwtResponseModel(jwtToken, userDetails.getUsername(), customerDto.getEmail()));
     }
 }

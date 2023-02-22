@@ -10,4 +10,6 @@ public interface CustomerService {
 
     Customer findById(Long id);
 
+    CustomerDto findByUsername(String username);
+
 }
