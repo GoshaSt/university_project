@@ -17,4 +17,6 @@ public class JwtResponseModel implements Serializable {
 
     private String email;
 
+    private String role;
+
 }

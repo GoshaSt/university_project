@@ -12,4 +12,6 @@ public interface CustomerService {
 
     CustomerDto findByUsername(String username);
 
+    Customer findByUser(String username);
+
 }

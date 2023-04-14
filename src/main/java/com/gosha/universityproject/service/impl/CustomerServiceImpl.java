@@ -41,6 +41,12 @@ public class CustomerServiceImpl implements CustomerService, UserDetailsService 
     }
 
     @Override
+    public Customer findByUser(String username) {
+        Customer customer = customerRepositoty.findByUsername(username).orElseThrow();
+        return customer;
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();

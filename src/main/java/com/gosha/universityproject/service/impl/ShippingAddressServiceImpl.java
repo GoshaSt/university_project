@@ -18,6 +18,9 @@ public class ShippingAddressServiceImpl implements ShippingAddressService {
     @Override
     public ShippingAddressDto create(ShippingAddressRequest shippingAddressRequest) {
         ShippingAddress shippingAddress = ModelMapperUtil.modelMapper().map(shippingAddressRequest, ShippingAddress.class);
-        return ModelMapperUtil.modelMapper().map(shippingAddressRepository.save(shippingAddress), ShippingAddressDto.class);
+        shippingAddressRepository.save(shippingAddress);
+        ShippingAddressDto shippingAddressDto = ModelMapperUtil.modelMapper().map(shippingAddress, ShippingAddressDto.class);
+        System.out.println(shippingAddressDto);
+        return shippingAddressDto;
     }
 }

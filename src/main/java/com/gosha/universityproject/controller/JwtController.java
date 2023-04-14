@@ -44,6 +44,7 @@ public class JwtController {
         final UserDetails userDetails = userDetailsService.loadUserByUsername(request.getUsername());
         final CustomerDto customerDto = userDetailsService.findByUsername(request.getUsername());
         final String jwtToken = tokenManager.generateJwtToken(userDetails);
-        return ResponseEntity.ok(new JwtResponseModel(jwtToken, userDetails.getUsername(), customerDto.getEmail()));
+        String role = customerDto.getRoles().get(0);
+        return ResponseEntity.ok(new JwtResponseModel(jwtToken, userDetails.getUsername(), customerDto.getEmail(), role));
     }
 }

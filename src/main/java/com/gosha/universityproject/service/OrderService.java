@@ -7,4 +7,6 @@ public interface OrderService {
 
     OrderDto create(OrderRequest orderRequest);
 
+    OrderDto getOrder(Long id);
+
 }

@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class CustomerOrderRequest {
 
-    private Long customerId;
+    private String customerUsername;
 
 }

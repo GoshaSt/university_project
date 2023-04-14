@@ -9,6 +9,8 @@ import java.util.concurrent.atomic.AtomicReference;
 @Data
 public class OrderDto {
 
+    private Long id;
+
     private LocalDate orderDate;
 
     private CustomerDto customer;
