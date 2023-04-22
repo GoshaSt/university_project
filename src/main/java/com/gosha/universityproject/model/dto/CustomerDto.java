@@ -7,6 +7,8 @@ import java.util.List;
 @Data
 public class CustomerDto {
 
+    private Long customerId;
+
     private String firstName;
 
     private String lastName;

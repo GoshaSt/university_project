@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/orders")
@@ -17,15 +19,34 @@ public class OrderController {
 
     @PostMapping
     public ResponseEntity<OrderDto> createOrder(
-            @RequestBody OrderRequest orderRequest){
+            @RequestBody OrderRequest orderRequest) {
         return ResponseEntity.ok(orderService.create(orderRequest));
     }
 
+    @PostMapping("/confirm/{id}")
+    public ResponseEntity<OrderDto> confirmOrder(@PathVariable Long id) {
+        return ResponseEntity.ok(orderService.confirmOrder(id));
+    }
+
+    @PostMapping("/deliver/{id}")
+    public ResponseEntity<OrderDto> deliveredOrder(@PathVariable Long id) {
+        return ResponseEntity.ok(orderService.deliveredOrder(id));
+    }
+
+    @PostMapping("/cancel/{id}")
+    public ResponseEntity<OrderDto> canceledOrder(@PathVariable Long id) {
+        return ResponseEntity.ok(orderService.canceledOrder(id));
+    }
+
     @GetMapping("/{id}")
-    public ResponseEntity<OrderDto> createOrder(
-            @PathVariable Long id){
-        System.out.println(orderService.getOrder(id));
-        return ResponseEntity.ok(orderService.getOrder(id));
+    public ResponseEntity<List<OrderDto>> getOrder(
+            @PathVariable Long id) {
+        return ResponseEntity.ok(orderService.getCustomerOrder(id));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<OrderDto>> getOrderList() {
+        return ResponseEntity.ok(orderService.getOrderList());
     }
 
 }

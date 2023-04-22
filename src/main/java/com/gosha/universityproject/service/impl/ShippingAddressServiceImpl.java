@@ -20,7 +20,6 @@ public class ShippingAddressServiceImpl implements ShippingAddressService {
         ShippingAddress shippingAddress = ModelMapperUtil.modelMapper().map(shippingAddressRequest, ShippingAddress.class);
         shippingAddressRepository.save(shippingAddress);
         ShippingAddressDto shippingAddressDto = ModelMapperUtil.modelMapper().map(shippingAddress, ShippingAddressDto.class);
-        System.out.println(shippingAddressDto);
         return shippingAddressDto;
     }
 }

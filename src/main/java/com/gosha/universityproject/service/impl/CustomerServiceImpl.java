@@ -15,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -25,6 +26,9 @@ public class CustomerServiceImpl implements CustomerService, UserDetailsService 
     @Override
     public CustomerDto create(CustomerRequest customerRequest) {
         Customer customer = ModelMapperUtil.modelMapper().map(customerRequest, Customer.class);
+        List<String> roleList = new ArrayList<>();
+        roleList.add("USER");
+        customer.setRoles(roleList);
         return ModelMapperUtil.modelMapper().map(customerRepositoty.save(customer), CustomerDto.class);
     }
 

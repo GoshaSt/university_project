@@ -29,4 +29,13 @@ public class Order {
     @JoinColumn(name = "customer_id", referencedColumnName = "customer_id", nullable = false)
     private Customer customer;
 
+    @Column(name = "is_confirmed")
+    private boolean isConfirmed;
+
+    @Column(name = "is_delivered")
+    private boolean isDelivered;
+
+    @Column(name = "is_canceled")
+    private boolean isCanceled;
+
 }

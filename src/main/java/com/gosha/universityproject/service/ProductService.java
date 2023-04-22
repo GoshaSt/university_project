@@ -1,5 +1,6 @@
 package com.gosha.universityproject.service;
 
+import java.io.IOException;
 import java.util.List;
 import com.gosha.universityproject.model.dto.ProductDto;
 import com.gosha.universityproject.model.request.ProductRequest;

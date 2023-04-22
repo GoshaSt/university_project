@@ -2,6 +2,7 @@ package com.gosha.universityproject.model.dto;
 
 import lombok.Data;
 
+import javax.persistence.Column;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
@@ -20,6 +21,12 @@ public class OrderDto {
     private AtomicReference<Double> total;
 
     private ShippingAddressDto shippingAddressDto;
+
+    private boolean isConfirmed;
+
+    private boolean isDelivered;
+
+    private boolean isCanceled;
 
 
 }

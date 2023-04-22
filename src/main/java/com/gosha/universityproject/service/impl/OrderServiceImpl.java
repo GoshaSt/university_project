@@ -93,14 +93,50 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public OrderDto confirmOrder(Long id) {
+        Order order = orderRepository.findById(id).orElseThrow();
+        order.setConfirmed(true);
+        orderRepository.save(order);
+        return ModelMapperUtil.modelMapper().map(order, OrderDto.class);
+    }
+
+    @Override
+    public OrderDto deliveredOrder(Long id) {
+        Order order = orderRepository.findById(id).orElseThrow();
+        order.setDelivered(true);
+        orderRepository.save(order);
+        return ModelMapperUtil.modelMapper().map(order, OrderDto.class);
+    }
+
+    @Override
+    public OrderDto canceledOrder(Long id) {
+        Order order = orderRepository.findById(id).orElseThrow();
+        order.setCanceled(true);
+        orderRepository.save(order);
+        return ModelMapperUtil.modelMapper().map(order, OrderDto.class);
+    }
+
+    @Override
+    public List<OrderDto> getCustomerOrder(Long id){
+        List<Order> orderList = orderRepository.findAllByCustomerOrderByOrderIdDesc(customerService.findById(id));
+        List<OrderDto> orderDtoList = new ArrayList<>();
+        for (Order order : orderList) {
+            OrderDto orderDto = getOrder(order.getOrderId());
+            orderDtoList.add(orderDto);
+        }
+        return orderDtoList;
+    }
+
+
+    @Override
     public OrderDto getOrder(Long id) {
         Order order = orderRepository.findById(id).orElseThrow();
         AtomicReference<Double> totalSum = new AtomicReference<>(0d);
         OrderDto orderDto = ModelMapperUtil.modelMapper().map(order, OrderDto.class);
+        orderDto.setId(order.getOrderId());
         CustomerDto customerDto = ModelMapperUtil.modelMapper().map(order.getCustomer(), CustomerDto.class);
         orderDto.setCustomer(customerDto);
         List<OrderItem> orderItemList = orderItemRepository.findAllByOrder_OrderId(id);
-        System.out.println(orderItemList);
         List<OrderItemDto> orderItemDtoList = new ArrayList<>();
         for (int i = 0; i < orderItemList.size(); i++) {
             OrderItemDto orderItemDto = new OrderItemDto();
@@ -115,6 +151,18 @@ public class OrderServiceImpl implements OrderService {
         orderDto.setTotal(totalSum);
         orderDto.setShippingAddressDto(ModelMapperUtil.modelMapper().map(shippingAddressRepository.findByOrder_OrderId(id), ShippingAddressDto.class));
         return orderDto;
+    }
+
+    @Override
+    public List<OrderDto> getOrderList() {
+        List<Order> orderList = orderRepository.findAllByOrderByOrderIdDesc();
+
+        List<OrderDto> orderDtoList = new ArrayList<>();
+        for (Order order : orderList) {
+            OrderDto orderDto = getOrder(order.getOrderId());
+            orderDtoList.add(orderDto);
+        }
+        return orderDtoList;
     }
 
 }
